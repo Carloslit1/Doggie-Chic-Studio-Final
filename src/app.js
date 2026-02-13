@@ -10,11 +10,12 @@ const app = express();
 /* MIDDLEWARES */
 app.use(express.json());
 
-/* STATIC LOGIN (si tienes public/) */
 app.use(express.static(path.join(__dirname, "..", "public")));
 
-/* DB: conectar antes de usar rutas (en Vercel y local)  */
+/* DB middleware */
 app.use(async (req, res, next) => {
+  if (req.path === "/health" || req.path === "/__version") return next();
+
   try {
     await connectDB();
     next();
@@ -23,37 +24,27 @@ app.use(async (req, res, next) => {
   }
 });
 
-/* RUTAS*/
+/* RUTAS */
 app.use("/auth", authRoutes);
 app.use("/productos", productosRoutes);
 
-/* EALTHCHECK  */
-/* HEALTHCHECK  */
-app.get("/health", (req, res) =>
-  res.json({ ok: true, msg: "health-v2-actividad4" })
-);
+/* HEALTH */
+app.get("/health", (req, res) => {
+  res.json({ ok: true, msg: "health-ok" });
+});
 
 app.get("/__version", (req, res) => {
   res.json({
     ok: true,
-    msg: "version-endpoint-actividad4",
     commit: process.env.VERCEL_GIT_COMMIT_SHA || null,
-    now: new Date().toISOString()
+    now: new Date().toISOString(),
   });
 });
 
-app.get("/productos-test", (req, res) => {
-  res.json({ ok: true, msg: "productos-test vivo" });
-});
-
-app.get("/productos-test", (req, res) => {
-  res.json({ ok: true, msg: "productos-test vivo" });
-});
-
-/*404  */
-app.use((req, res) => res.status(404).json({ error: "Ruta no encontrada" }));
+/* 404 */
+app.use((req, res) =>
+  res.status(404).json({ error: "Ruta no encontrada" })
+);
 
 module.exports = app;
-
-
 
