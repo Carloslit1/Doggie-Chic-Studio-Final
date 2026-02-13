@@ -1,6 +1,7 @@
 const request = require("supertest");
 const mongoose = require("mongoose");
-const { app, connectDB } = require("../server");
+const app = require("../src/app");
+const { connectDB } = require("../src/db");
 
 describe("Auth Routes", () => {
   beforeAll(async () => {
