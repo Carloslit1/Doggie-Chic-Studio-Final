@@ -67,7 +67,8 @@ Crea un archivo `.env` en la raíz:
 ```env
 PORT=3001
 MONGO_URI=TU_URI_DE_MONGODB
-JWT_SECRET=TU_SECRETO_JWT 
+JWT_SECRET=TU_SECRETO_JWT  
+```
 
 ## 5) Instalación y ejecución local
 5.1 Clonar e instalar dependencias
@@ -84,7 +85,7 @@ npm start
 
 Servidor por defecto: http://localhost:3001
 
-6) Endpoints disponibles
+##6) Endpoints disponibles
 6.1 Health / Version
 
 GET /health → Verifica que el servidor responde.
@@ -95,7 +96,7 @@ Ejemplo (Vercel):
 curl -s https://doggie-chic-studio-final1.vercel.app/health
 curl -s https://doggie-chic-studio-final1.vercel.app/__version
 
-7) Autenticación (JWT)
+##7) Autenticación (JWT)
 7.1 Registro
 
 POST /auth/register
@@ -113,7 +114,7 @@ curl -s -X POST https://doggie-chic-studio-final1.vercel.app/auth/login \
 
 El login regresa un token. Guárdalo para usarlo en rutas protegidas.
 
-8) CRUD de Productos (rutas protegidas)
+##8) CRUD de Productos (rutas protegidas)
 
 Todas las rutas de productos requieren header:
 Authorization: Bearer <TOKEN>
@@ -155,7 +156,7 @@ ID="PEGA_ID_PRODUCTO"
 curl -s -X DELETE https://doggie-chic-studio-final1.vercel.app/productos/$ID \
   -H "Authorization: Bearer $TOKEN"
 
-9) Pruebas unitarias (Jest + Supertest)
+##9) Pruebas unitarias (Jest + Supertest)
 
 Este proyecto incluye pruebas automatizadas para:
 
@@ -167,7 +168,7 @@ Ejecutar tests:
 npm test
 Los tests usan NODE_ENV=test y cargan variables con dotenv para poder conectarse a MongoDB y ejecutar pruebas repetibles.
 
-10) CI/CD — GitHub Actions (Pipeline)
+##10) CI/CD — GitHub Actions (Pipeline)
 
 Se incluye pipeline en:
 
@@ -187,7 +188,7 @@ Para revisar:
 
 En GitHub → pestaña Actions → workflow CI → debe aparecer Passed.
 
-11) Deploy — Vercel (SaaS)
+##11) Deploy — Vercel (SaaS)
 
 La aplicación está desplegada en Vercel:
 
@@ -206,7 +207,7 @@ Manejo de variables de entorno por proyecto
 
 Escalabilidad y disponibilidad sin administrar infraestructura (ideal para práctica CI/CD)
 
-12) Evidencias sugeridas (para el entregable)
+##12) Evidencias sugeridas (para el entregable)
 
 Captura de npm test en local (todo en verde)
 
